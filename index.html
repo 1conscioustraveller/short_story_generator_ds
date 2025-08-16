@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilingual Story Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Story Time Generator</h1>
+        
+        <div class="controls">
+            <div class="prompt-section">
+                <label for="story-prompt">Enter your story idea:</label>
+                <input type="text" id="story-prompt" placeholder="e.g. A cow who sang aloud">
+                <button id="generate-btn">Generate Story</button>
+            </div>
+            
+            <div class="settings">
+                <label for="language">Language:</label>
+                <select id="language">
+                    <option value="english">English</option>
+                    <option value="spanish">Español</option>
+                </select>
+                
+                <label class="toggle">
+                    <input type="checkbox" id="dyslexia-mode">
+                    <span class="slider"></span>
+                    Dyslexia Mode
+                </label>
+            </div>
+        </div>
+        
+        <div class="story-container">
+            <div class="story-column" id="english-story">
+                <h2>English Story</h2>
+                <div class="story-content" id="english-content"></div>
+            </div>
+            
+            <div class="story-column" id="spanish-story">
+                <h2>Spanish Story</h2>
+                <div class="story-content" id="spanish-content"></div>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button id="prev-page" disabled>Previous</button>
+            <span id="page-indicator">Page 1 of 1</span>
+            <button id="next-page" disabled>Next</button>
+        </div>
+        
+        <div class="audio-controls">
+            <button id="play-audio">Play Audio</button>
+            <button id="pause-audio" disabled>Pause</button>
+            <button id="stop-audio" disabled>Stop</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -64,7 +64,7 @@ input[type="text"] {
     border: 1px solid #556B55; /* darker green border for contrast */
     border-radius: 8px;
     font-size: 16px;
-    background-color: #010d01; /* dark green input background */
+    background-color: #03171a; /* dark green input background */
     color: #FFFF00; /* yellow text inside input for consistency */
 }
 
@@ -122,7 +122,7 @@ button:disabled {
     flex: 1;
     padding: 20px;
     border-right: 1px solid #445544;
-    background: #2F4F2F;
+    background: #03171a;
 }
 
 .story-column:last-child {

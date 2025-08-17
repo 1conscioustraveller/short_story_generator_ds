@@ -21,7 +21,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #021c14; /* Medium dark green for contrast */
+    background-color: #158a6e; /* Medium dark green for contrast */
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -114,7 +114,7 @@ button:disabled {
     border: 1px solid #445544; /* dark green border */
     border-radius: 12px;
     overflow: hidden;
-    background: #2F4F2F; /* darker green background for story area */
+    background: #031c1f; /* darker green background for story area */
     color: #FFFF00; /* yellow text for story content */
 }
 

@@ -3,79 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids' Bilingual Story Generator</title>
+    <title>Story Magic</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap">
 </head>
-<body>
+<body class="theme-blue">
     <div class="container">
         <header>
-            <h1>Kids' Bilingual Story Generator</h1>
-            <div class="controls">
-                <div class="api-inputs">
-                    <div class="api-field">
-                        <label for="openai-key"><strong>OPENAI API KEY:</strong></label>
-                        <input type="password" id="openai-key" placeholder="Enter your OpenAI API key">
-                    </div>
-                    <div class="api-field">
-                        <label for="tts-key"><strong>GEMINI TTS API KEY:</strong></label>
-                        <input type="password" id="tts-key" placeholder="Enter your Gemini TTS API key">
-                    </div>
-                </div>
-                
-                <div class="settings">
-                    <div class="theme-selector">
-                        <label>Color Theme:</label>
-                        <button class="theme-btn" data-theme="light">Light</button>
-                        <button class="theme-btn" data-theme="dark">Dark</button>
-                        <button class="theme-btn" data-theme="sepia">Sepia</button>
-                        <button class="theme-btn" data-theme="blue">Blue</button>
-                    </div>
-                    
-                    <div class="language-selector">
-                        <label>Language:</label>
-                        <select id="language">
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                        </select>
-                    </div>
-                </div>
+            <h1>Story Magic</h1>
+            <div class="theme-switcher">
+                <button class="theme-btn blue" data-theme="blue"></button>
+                <button class="theme-btn green" data-theme="green"></button>
+                <button class="theme-btn purple" data-theme="purple"></button>
+                <button class="theme-btn orange" data-theme="orange"></button>
             </div>
         </header>
 
-        <main>
-            <div class="story-prompt">
-                <label for="prompt">Story Idea:</label>
-                <input type="text" id="prompt" placeholder="e.g. A cow who sang aloud">
-                <button id="generate-btn">Generate Story</button>
+        <div class="input-section">
+            <input type="text" id="storyPrompt" placeholder="Enter your story idea (e.g. Squirrels on Ice)">
+            <button id="generateBtn">Generate Story</button>
+        </div>
+
+        <div class="story-container hidden">
+            <div class="story-controls">
+                <button id="prevPage">Previous</button>
+                <span id="pageIndicator">Page 1 of 10</span>
+                <button id="nextPage">Next</button>
+                <button id="readBtn">Read Aloud</button>
             </div>
 
-            <div class="story-container hidden">
-                <div class="story-nav">
-                    <button id="prev-page" disabled>Previous</button>
-                    <span id="page-counter">Page 1 of 1</span>
-                    <button id="next-page" disabled>Next</button>
+            <div class="story-content">
+                <div class="english-story">
+                    <h2>English</h2>
+                    <div id="englishText" class="story-text"></div>
                 </div>
-
-                <div class="story-content">
-                    <div class="story-column english">
-                        <h2>English</h2>
-                        <div id="english-text" class="story-text"></div>
-                        <button class="play-btn" data-lang="en">🔊 Play</button>
-                    </div>
-                    <div class="story-column spanish">
-                        <h2>Spanish</h2>
-                        <div id="spanish-text" class="story-text"></div>
-                        <button class="play-btn" data-lang="es">🔊 Play</button>
-                    </div>
+                <div class="spanish-story">
+                    <h2>Spanish</h2>
+                    <div id="spanishText" class="story-text"></div>
                 </div>
             </div>
 
-            <div class="loading hidden">
-                <div class="spinner"></div>
-                <p>Creating your magical story...</p>
+            <div class="word-highlighter">
+                <p>Click on any word to hear it again</p>
+                <div id="wordDisplay"></div>
             </div>
-        </main>
+        </div>
+
+        <div class="loading hidden">
+            <div class="spinner"></div>
+            <p>Creating your magical story...</p>
+        </div>
     </div>
 
     <script src="script.js"></script>

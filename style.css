@@ -76,7 +76,7 @@ input[type="text"]:focus {
 
 /* Buttons with high contrast, hover, and solid styles */
 button {
-    background: linear-gradient(135deg, #548B54, #4E8E4E); /* green gradient for visibility */
+    background: linear-gradient(135deg, #031f1d, #02272b); /* green gradient for visibility */
     color: #1b91cf; /* button text color changed to #1b91cf */
     border: none;
     padding: 12px 18px;

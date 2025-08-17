@@ -74,7 +74,7 @@ input[type="text"]:focus {
     outline: none;
 }
 
-/* Buttons with high contrast and hover adjustments */
+/* Buttons with high contrast, hover, and solid styles */
 button {
     background: linear-gradient(135deg, #548B54, #4E8E4E); /* green gradient for visibility */
     color: #1b91cf; /* button text color changed to #1b91cf */
@@ -87,11 +87,19 @@ button {
     transition: background 0.3s, transform 0.2s;
 }
 
+/* Hover gradient oranges changed to #023a57 */
 button:hover:not(:disabled) {
-    background: linear-gradient(135deg, #023a57, #023a57); /* hover gradient changed to #023a57 */
+    background: #023a57; /* solid color for hover */
     transform: translateY(-2px);
 }
 
+/* Solid buttons with background color #02343b */
+button.solid {
+    background-color: #02343b;
+    color: #1b91cf; /* ensure text color is consistent */
+}
+
+/* Disabled state */
 button:disabled {
     background-color: #556B55; /* muted green for disabled state */
     cursor: not-allowed;

@@ -1,8 +1,5 @@
-index.html
-style.css
-script.js
-assets/
-    icons/
-        read-aloud.svg
-        next-page.svg
-        prev-page.svg
+short-story-generator/
+├── index.html
+├── script.js
+├── styles.css
+└── README.md

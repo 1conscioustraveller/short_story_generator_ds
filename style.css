@@ -1,312 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmonic UI Elements</title>
-    <style>
-        :root {
-            --primary: #5E35B1; /* Deep purple */
-            --primary-light: #9575CD;
-            --primary-dark: #4527A0;
-            --secondary: #26A69A; /* Teal */
-            --secondary-light: #64FFDA;
-            --secondary-dark: #00897B;
-            --accent: #FFA000; /* Amber */
-            --accent-light: #FFC107;
-            --accent-dark: #FF8F00;
-            --text-on-primary: #FFFFFF;
-            --text-on-secondary: #000000;
-            --text-on-accent: #000000;
-            --background: #FAFAFA;
-            --surface: #FFFFFF;
-            --error: #D32F2F;
-        }
+/* Dyslexia-friendly font */
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://dyslexicfonts.com/fonts/OpenDyslexic-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
-            color: #333;
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+/* Global Styles for Reading Optimization with Green Shades */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.7;
+    color: #FFFF00; /* Bright yellow text for high contrast */
+    background: linear-gradient(135deg, #4B6B4B, #2F4F2F); /* Medium dark green background */
+    margin: 0;
+    padding: 20px;
+    transition: background 0.4s ease;
+}
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background-color: var(--surface);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #3A5F3A; /* Medium dark green for contrast */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
 
-        h1 {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
+/* Heading styling for readability */
+h1 {
+    color: #FFFF00; /* Bright yellow for headings */
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
 
-        .section {
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
+/* Controls styling */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 25px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 
-        .section:last-child {
-            border-bottom: none;
-        }
+.prompt-section {
+    flex: 1;
+    min-width: 300px;
+}
 
-        h2 {
-            color: var(--secondary-dark);
-            margin-top: 0;
-            font-weight: 500;
-        }
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
+input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #556B55; /* darker green border for contrast */
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #2F4F2F; /* dark green input background */
+    color: #FFFF00; /* yellow text inside input for consistency */
+}
 
-        button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+input[type="text"]:focus {
+    border-color: #FFFF00; /* yellow border on focus */
+    box-shadow: 0 0 6px #FFFF00;
+    outline: none;
+}
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
+/* Buttons with high contrast and hover adjustments */
+button {
+    background: linear-gradient(135deg, #548B54, #4E8E4E); /* green gradient for visibility */
+    color: #1b91cf; /* button text color changed to #1b91cf */
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
 
-        .primary-btn {
-            background-color: var(--primary);
-            color: var(--text-on-primary);
-        }
+button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #023a57, #023a57); /* hover gradient changed to #023a57 */
+    transform: translateY(-2px);
+}
 
-        .primary-btn:hover {
-            background-color: var(--primary-dark);
-        }
+button:disabled {
+    background-color: #556B55; /* muted green for disabled state */
+    cursor: not-allowed;
+}
 
-        .secondary-btn {
-            background-color: var(--secondary);
-            color: var(--text-on-secondary);
-        }
+/* Story container styles */
+.story-container {
+    display: flex;
+    gap: 20px;
+    margin: 25px 0;
+    min-height: 400px;
+    border: 1px solid #445544; /* dark green border */
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2F4F2F; /* darker green background for story area */
+    color: #FFFF00; /* yellow text for story content */
+}
 
-        .secondary-btn:hover {
-            background-color: var(--secondary-dark);
-            color: var(--text-on-primary);
-        }
+.story-column {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #445544;
+    background: #2F4F2F;
+}
 
-        .accent-btn {
-            background-color: var(--accent);
-            color: var(--text-on-accent);
-        }
+.story-column:last-child {
+    border-right: none;
+}
 
-        .accent-btn:hover {
-            background-color: var(--accent-dark);
-        }
+.story-content {
+    font-size: 18px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
 
-        .outline-btn {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
+/* Navigation & Audio Controls */
+.navigation, .audio-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
 
-        .outline-btn:hover {
-            background-color: var(--primary-light);
-            color: var(--text-on-primary);
-            border-color: var(--primary-light);
-        }
+#page-indicator {
+    font-weight: bold;
+    min-width: 100px;
+    text-align: center;
+    font-size: 18px;
+    color: #FFFF00; /* highlight with yellow */
+}
 
-        .text-field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
+/* Dyslexia mode adjustments */
+.dyslexia-mode {
+    font-family: 'OpenDyslexic', sans-serif;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #FFFF00; /* yellow text in dyslexia mode */
+    background-color: #2F4F2F; /* dark green background for readability */
+}
 
-        .input-container {
-            position: relative;
-        }
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .story-container {
+        flex-direction: column;
+    }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background-color: var(--surface);
-        }
+    .story-column {
+        border-right: none;
+        border-bottom: 1px solid #445544;
+    }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.2);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--primary-dark);
-            font-weight: 500;
-        }
-
-        .floating-label {
-            position: absolute;
-            left: 1rem;
-            top: 0.75rem;
-            color: #666;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        input:focus + .floating-label,
-        input:not(:placeholder-shown) + .floating-label,
-        textarea:focus + .floating-label,
-        textarea:not(:placeholder-shown) + .floating-label {
-            top: -0.75rem;
-            left: 0.75rem;
-            font-size: 0.75rem;
-            background-color: var(--surface);
-            padding: 0 0.25rem;
-            color: var(--primary);
-        }
-
-        .error {
-            color: var(--error);
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-
-        .error-input {
-            border-color: var(--error);
-        }
-
-        .error-input:focus {
-            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
-        }
-
-        .card {
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 1rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .color-palette {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .color-box {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 0.5rem;
-            color: white;
-            font-size: 0.75rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Harmonic UI Elements</h1>
-        
-        <div class="section">
-            <h2>Color Palette</h2>
-            <div class="color-palette">
-                <div class="color-box" style="background-color: var(--primary);">Primary<br>#5E35B1</div>
-                <div class="color-box" style="background-color: var(--primary-light); color: black;">Primary Light<br>#9575CD</div>
-                <div class="color-box" style="background-color: var(--primary-dark);">Primary Dark<br>#4527A0</div>
-                <div class="color-box" style="background-color: var(--secondary); color: black;">Secondary<br>#26A69A</div>
-                <div class="color-box" style="background-color: var(--secondary-light); color: black;">Secondary Light<br>#64FFDA</div>
-                <div class="color-box" style="background-color: var(--secondary-dark);">Secondary Dark<br>#00897B</div>
-                <div class="color-box" style="background-color: var(--accent); color: black;">Accent<br>#FFA000</div>
-                <div class="color-box" style="background-color: var(--accent-light); color: black;">Accent Light<br>#FFC107</div>
-                <div class="color-box" style="background-color: var(--accent-dark); color: black;">Accent Dark<br>#FF8F00</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Buttons</h2>
-            <div class="button-group">
-                <button class="primary-btn">Primary Button</button>
-                <button class="secondary-btn">Secondary Button</button>
-                <button class="accent-btn">Accent Button</button>
-                <button class="outline-btn">Outline Button</button>
-            </div>
-            
-            <div class="button-group">
-                <button class="primary-btn" disabled>Disabled</button>
-                <button class="secondary-btn" disabled>Disabled</button>
-                <button class="accent-btn" disabled>Disabled</button>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Text Fields</h2>
-            <div class="text-field-group">
-                <div class="input-container">
-                    <input type="text" id="name" placeholder=" ">
-                    <label for="name" class="floating-label">Full Name</label>
-                </div>
-                
-                <div class="input-container">
-                    <input type="email" id="email" placeholder=" ">
-                    <label for="email" class="floating-label">Email Address</label>
-                </div>
-                
-                <div class="input-container">
-                    <textarea id="message" rows="4" placeholder=" "></textarea>
-                    <label for="message" class="floating-label">Your Message</label>
-                </div>
-                
-                <div class="input-container">
-                    <select id="country">
-                        <option value="" disabled selected>Select a country</option>
-                        <option value="us">United States</option>
-                        <option value="ca">Canada</option>
-                        <option value="uk">United Kingdom</option>
-                        <option value="au">Australia</option>
-                    </select>
-                    <label for="country" style="position: static;">Country</label>
-                </div>
-                
-                <div class="input-container">
-                    <input type="password" id="password" class="error-input" placeholder=" ">
-                    <label for="password" class="floating-label">Password</label>
-                    <p class="error">Password must be at least 8 characters</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2>Harmonic Design</h2>
-            <p>This interface uses a carefully selected color palette with deep purple as the primary color, teal as secondary, and amber as accent. The colors complement each other to create visual harmony while maintaining excellent contrast for accessibility.</p>
-        </div>
-    </div>
-</body>
-</html>
+    h1 {
+        font-size: 1.8rem;
+    }
+}

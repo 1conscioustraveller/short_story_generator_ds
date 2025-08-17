@@ -21,7 +21,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #158a6e; /* Medium dark green for contrast */
+    background-color: #014224; /* Medium dark green for contrast */
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -64,7 +64,7 @@ input[type="text"] {
     border: 1px solid #556B55; /* darker green border for contrast */
     border-radius: 8px;
     font-size: 16px;
-    background-color: #2F4F2F; /* dark green input background */
+    background-color: #010d01; /* dark green input background */
     color: #FFFF00; /* yellow text inside input for consistency */
 }
 

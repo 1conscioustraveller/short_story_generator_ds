@@ -3,69 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids' Story Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Kids' Bilingual Story Generator</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Magic Story Maker</h1>
+            <h1>Kids' Bilingual Story Generator</h1>
             <div class="controls">
                 <div class="api-inputs">
-                    <div>
-                        <label for="openai-key">OpenAI API Key:</label>
-                        <input type="password" id="openai-key" placeholder="sk-...">
+                    <div class="api-field">
+                        <label for="openai-key"><strong>OPENAI API KEY:</strong></label>
+                        <input type="password" id="openai-key" placeholder="Enter your OpenAI API key">
                     </div>
-                    <div>
-                        <label for="tts-key">TTS API Key:</label>
-                        <input type="password" id="tts-key" placeholder="Your TTS key">
+                    <div class="api-field">
+                        <label for="tts-key"><strong>GEMINI TTS API KEY:</strong></label>
+                        <input type="password" id="tts-key" placeholder="Enter your Gemini TTS API key">
                     </div>
                 </div>
-                <div class="theme-selector">
-                    <button class="theme-btn" data-theme="light">☀️ Light</button>
-                    <button class="theme-btn" data-theme="dark">🌙 Dark</button>
-                    <button class="theme-btn" data-theme="sepia">📜 Sepia</button>
-                    <button class="theme-btn" data-theme="blue">🔵 Blue</button>
-                </div>
-                <div class="language-selector">
-                    <button id="lang-en" class="lang-btn active">English</button>
-                    <button id="lang-es" class="lang-btn">Español</button>
+                
+                <div class="settings">
+                    <div class="theme-selector">
+                        <label>Color Theme:</label>
+                        <button class="theme-btn" data-theme="light">Light</button>
+                        <button class="theme-btn" data-theme="dark">Dark</button>
+                        <button class="theme-btn" data-theme="sepia">Sepia</button>
+                        <button class="theme-btn" data-theme="blue">Blue</button>
+                    </div>
+                    
+                    <div class="language-selector">
+                        <label>Language:</label>
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <div class="story-prompt">
-            <input type="text" id="story-idea" placeholder="Enter your story idea (e.g. A cow who sang aloud)">
-            <button id="generate-btn">Create Story</button>
-        </div>
+        <main>
+            <div class="story-prompt">
+                <label for="prompt">Story Idea:</label>
+                <input type="text" id="prompt" placeholder="e.g. A cow who sang aloud">
+                <button id="generate-btn">Generate Story</button>
+            </div>
 
-        <div class="story-container hidden">
-            <div class="story-display">
-                <div class="story-page english">
-                    <div class="story-text"></div>
-                    <button class="read-aloud">
-                        <img src="assets/icons/read-aloud.svg" alt="Read aloud">
-                    </button>
+            <div class="story-container hidden">
+                <div class="story-nav">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="page-counter">Page 1 of 1</span>
+                    <button id="next-page" disabled>Next</button>
                 </div>
-                <div class="story-page spanish hidden">
-                    <div class="story-text"></div>
-                    <button class="read-aloud">
-                        <img src="assets/icons/read-aloud.svg" alt="Leer en voz alta">
-                    </button>
+
+                <div class="story-content">
+                    <div class="story-column english">
+                        <h2>English</h2>
+                        <div id="english-text" class="story-text"></div>
+                        <button class="play-btn" data-lang="en">🔊 Play</button>
+                    </div>
+                    <div class="story-column spanish">
+                        <h2>Spanish</h2>
+                        <div id="spanish-text" class="story-text"></div>
+                        <button class="play-btn" data-lang="es">🔊 Play</button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="story-controls">
-                <button class="nav-btn prev-page" disabled>
-                    <img src="assets/icons/prev-page.svg" alt="Previous page">
-                </button>
-                <span class="page-indicator">Page 1 of 1</span>
-                <button class="nav-btn next-page" disabled>
-                    <img src="assets/icons/next-page.svg" alt="Next page">
-                </button>
+
+            <div class="loading hidden">
+                <div class="spinner"></div>
+                <p>Creating your magical story...</p>
             </div>
-        </div>
+        </main>
     </div>
 
     <script src="script.js"></script>

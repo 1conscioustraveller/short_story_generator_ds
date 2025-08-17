@@ -1,7 +1,8 @@
-project-folder/
-├── index.html
-├── style.css
-├── script.js
-└── assets/
-    ├── english-voice.mp3 (example)
-    ├── spanish-voice.mp3 (example)
+index.html
+style.css
+script.js
+assets/
+    icons/
+        read-aloud.svg
+        next-page.svg
+        prev-page.svg

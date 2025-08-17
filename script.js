@@ -343,3 +343,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     updateNavigation();
 });
+
+    // Theme selector functionality
+    const themeSelector = document.getElementById('color-theme');
+    themeSelector.addEventListener('change', function() {
+        // Remove all theme classes
+        document.body.classList.remove(
+            'default', 'pink-purple', 'cyan-blue', 'green-yellow', 'pastel'
+        );
+        
+        // Add the selected theme class
+        document.body.classList.add(this.value);
+    });
+    
+    // Set default theme
+    document.body.classList.add('default');

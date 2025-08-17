@@ -11,7 +11,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.7;
     color: #FFFF00; /* Bright yellow text for high contrast */
-    background: linear-gradient(135deg, #4B4B4B, #2F2F2F); /* Medium dark background */
+    background: linear-gradient(135deg, #052b0b, #04240b); /* Medium dark background */
     margin: 0;
     padding: 20px;
     transition: background 0.4s ease;
@@ -21,7 +21,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #333; /* Slightly lighter for contrast */
+    background-color: #185714; /* Slightly lighter for contrast */
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -76,8 +76,8 @@ input[type="text"]:focus {
 
 /* Buttons with high contrast */
 button {
-    background: linear-gradient(135deg, #FFA500, #FF8C00); /* warm gradient for visibility */
-    color: #000; /* black text for readability */
+    background: linear-gradient(135deg, #15125c, #111361); /* warm gradient for visibility */
+    color: #c9a52c; /* black text for readability */
     border: none;
     padding: 12px 18px;
     border-radius: 8px;

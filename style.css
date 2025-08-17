@@ -1,258 +1,241 @@
-:root {
-    --bg-color: #f9f9f9;
-    --text-color: #333;
-    --primary-color: #4a6fa5;
-    --secondary-color: #ff9f1c;
-    --highlight-color: #f8f8f8;
-}
-
-/* Theme variations */
-.light {
-    --bg-color: #f9f9f9;
-    --text-color: #333;
-    --primary-color: #4a6fa5;
-    --secondary-color: #ff9f1c;
-    --highlight-color: #f8f8f8;
-}
-
-.dark {
-    --bg-color: #222;
-    --text-color: #eee;
-    --primary-color: #6a8fc7;
-    --secondary-color: #ffb347;
-    --highlight-color: #333;
-}
-
-.sepia {
-    --bg-color: #f4ecd8;
-    --text-color: #5b4636;
-    --primary-color: #8b7866;
-    --secondary-color: #d4a259;
-    --highlight-color: #e8dfc8;
-}
-
-.blue {
-    --bg-color: #e6f2ff;
-    --text-color: #003366;
-    --primary-color: #0066cc;
-    --secondary-color: #66b3ff;
-    --highlight-color: #d9e6ff;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'OpenDyslexic', Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-h1 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.api-inputs {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.api-inputs div {
-    display: flex;
-    flex-direction: column;
-}
-
-.api-inputs label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.api-inputs input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    min-width: 250px;
-}
-
-.theme-selector, .language-selector {
-    display: flex;
-    gap: 10px;
-}
-
-.theme-btn, .lang-btn {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.theme-btn:hover, .lang-btn:hover {
-    opacity: 0.9;
-}
-
-.lang-btn.active {
-    background-color: var(--secondary-color);
-}
-
-.story-prompt {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 10px;
-}
-
-#story-idea {
-    padding: 10px 15px;
-    border: 2px solid var(--primary-color);
-    border-radius: 4px;
-    font-size: 16px;
-    min-width: 300px;
-    font-family: 'OpenDyslexic', Arial, sans-serif;
-}
-
-#generate-btn {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: 'OpenDyslexic', Arial, sans-serif;
-}
-
-#generate-btn:hover {
-    background-color: var(--secondary-color);
-}
-
-.story-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.story-display {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.story-page {
-    flex: 1;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: var(--highlight-color);
-    position: relative;
-    min-height: 300px;
-}
-
-.story-text {
-    font-size: 18px;
-    margin-bottom: 40px;
-    line-height: 1.8;
-    letter-spacing: 0.5px;
-}
-
-.read-aloud {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.read-aloud img {
-    width: 30px;
-    height: 30px;
-}
-
-.story-controls {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.nav-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.nav-btn img {
-    width: 20px;
-    height: 20px;
-}
-
-.page-indicator {
-    font-weight: bold;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .story-display {
-        flex-direction: column;
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const generateBtn = document.getElementById('generate-btn');
+    const storyIdeaInput = document.getElementById('story-idea');
+    const storyContainer = document.querySelector('.story-container');
+    const englishStoryText = document.querySelector('.english .story-text');
+    const spanishStoryText = document.querySelector('.spanish .story-text');
+    const prevPageBtn = document.querySelector('.prev-page');
+    const nextPageBtn = document.querySelector('.next-page');
+    const pageIndicator = document.querySelector('.page-indicator');
+    const englishReadAloudBtns = document.querySelectorAll('.english .read-aloud');
+    const spanishReadAloudBtns = document.querySelectorAll('.spanish .read-aloud');
+    const langEnBtn = document.getElementById('lang-en');
+    const langEsBtn = document.getElementById('lang-es');
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    
+    // State variables
+    let currentStory = {
+        english: [],
+        spanish: []
+    };
+    let currentPage = 0;
+    let currentLanguage = 'english';
+    
+    // Event Listeners
+    generateBtn.addEventListener('click', generateStory);
+    prevPageBtn.addEventListener('click', goToPreviousPage);
+    nextPageBtn.addEventListener('click', goToNextPage);
+    langEnBtn.addEventListener('click', () => switchLanguage('english'));
+    langEsBtn.addEventListener('click', () => switchLanguage('spanish'));
+    
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            setTheme(this.dataset.theme);
+        });
+    });
+    
+    englishReadAloudBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            readAloud(currentStory.english[currentPage], 'en');
+        });
+    });
+    
+    spanishReadAloudBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            readAloud(currentStory.spanish[currentPage], 'es');
+        });
+    });
+    
+    // Initialize
+    setTheme('light');
+    
+    // Functions
+    async function generateStory() {
+        const prompt = storyIdeaInput.value.trim();
+        const openaiKey = document.getElementById('openai-key').value.trim();
+        
+        if (!prompt) {
+            alert('Please enter a story idea!');
+            return;
+        }
+        
+        if (!openaiKey) {
+            alert('Please enter your OpenAI API key!');
+            return;
+        }
+        
+        try {
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Creating...';
+            
+            // Generate English story
+            const englishStory = await generateStoryWithAI(prompt, openaiKey, 'english');
+            currentStory.english = splitIntoPages(englishStory);
+            
+            // Generate Spanish translation
+            const spanishStory = await generateStoryWithAI(
+                `Translate this children's story to Spanish, keeping it simple for ages 6-10:\n\n${englishStory}`,
+                openaiKey,
+                'spanish'
+            );
+            currentStory.spanish = splitIntoPages(spanishStory);
+            
+            // Display first page
+            currentPage = 0;
+            updateStoryDisplay();
+            storyContainer.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error generating story:', error);
+            alert('Error generating story. Please check your API key and try again.');
+        } finally {
+            generateBtn.disabled = false;
+            generateBtn.textContent = 'Create Story';
+        }
     }
     
-    .controls {
-        flex-direction: column;
-        align-items: center;
+    async function generateStoryWithAI(prompt, apiKey, language) {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `You are a children's story generator. Create a fun, engaging story for kids ages 6-10. 
+                        Keep sentences short and simple. Use basic vocabulary. The story should be 3-5 paragraphs long. 
+                        Respond with just the story text, no titles or explanations.`
+                    },
+                    {
+                        role: 'user',
+                        content: prompt
+                    }
+                ],
+                temperature: 0.7
+            })
+        });
+        
+        const data = await response.json();
+        return data.choices[0].message.content;
     }
     
-    .story-prompt {
-        flex-direction: column;
-        align-items: center;
+    function splitIntoPages(story) {
+        // Split story into paragraphs first
+        const paragraphs = story.split('\n\n').filter(p => p.trim());
+        
+        // Further split long paragraphs into smaller chunks
+        const pages = [];
+        for (const paragraph of paragraphs) {
+            const sentences = paragraph.split(/[.!?]+/).filter(s => s.trim());
+            let currentPage = '';
+            
+            for (const sentence of sentences) {
+                if ((currentPage + sentence).length < 500) { // Roughly 500 characters per page
+                    currentPage += sentence + '. ';
+                } else {
+                    pages.push(currentPage.trim());
+                    currentPage = sentence + '. ';
+                }
+            }
+            
+            if (currentPage.trim()) {
+                pages.push(currentPage.trim());
+            }
+        }
+        
+        return pages;
     }
     
-    #story-idea {
-        width: 100%;
-        max-width: 300px;
+    function updateStoryDisplay() {
+        englishStoryText.textContent = currentStory.english[currentPage] || '';
+        spanishStoryText.textContent = currentStory.spanish[currentPage] || '';
+        
+        pageIndicator.textContent = `Page ${currentPage + 1} of ${Math.max(currentStory.english.length, currentStory.spanish.length)}`;
+        
+        prevPageBtn.disabled = currentPage === 0;
+        nextPageBtn.disabled = currentPage >= Math.max(currentStory.english.length, currentStory.spanish.length) - 1;
     }
-}
+    
+    function goToPreviousPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            updateStoryDisplay();
+        }
+    }
+    
+    function goToNextPage() {
+        if (currentPage < Math.max(currentStory.english.length, currentStory.spanish.length) - 1) {
+            currentPage++;
+            updateStoryDisplay();
+        }
+    }
+    
+    function switchLanguage(lang) {
+        currentLanguage = lang;
+        document.querySelector('.english').classList.toggle('hidden', lang !== 'english');
+        document.querySelector('.spanish').classList.toggle('hidden', lang !== 'spanish');
+        
+        langEnBtn.classList.toggle('active', lang === 'english');
+        langEsBtn.classList.toggle('active', lang === 'spanish');
+    }
+    
+    function setTheme(theme) {
+        document.body.className = theme;
+        
+        // Update active button state
+        themeBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.theme === theme);
+        });
+    }
+    
+    function readAloud(text, lang) {
+        const ttsKey = document.getElementById('tts-key').value.trim();
+        
+        if (!ttsKey) {
+            alert('Please enter your TTS API key to use read aloud');
+            return;
+        }
+        
+        // In a real implementation, you would call the TTS API here
+        // This is a placeholder for the TTS functionality
+        console.log(`Reading aloud (${lang}):`, text);
+        alert(`Read aloud would play: ${text}\n\n(In a real implementation, this would use the TTS API)`);
+        
+        // Example implementation with Web Speech API (no key needed, but browser support varies)
+        try {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang === 'es' ? 'es-ES' : 'en-US';
+            utterance.rate = 0.9;
+            speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.error('Error with Web Speech API:', e);
+        }
+    }
+    
+    // Touch event handlers for mobile swipe navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    storyContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    storyContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            // Swipe left - next page
+            goToNextPage();
+        } else if (touchEndX > touchStartX + 50) {
+            // Swipe right - previous page
+            goToPreviousPage();
+        }
+    }
+});

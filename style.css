@@ -1,241 +1,305 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const generateBtn = document.getElementById('generate-btn');
-    const storyIdeaInput = document.getElementById('story-idea');
-    const storyContainer = document.querySelector('.story-container');
-    const englishStoryText = document.querySelector('.english .story-text');
-    const spanishStoryText = document.querySelector('.spanish .story-text');
-    const prevPageBtn = document.querySelector('.prev-page');
-    const nextPageBtn = document.querySelector('.next-page');
-    const pageIndicator = document.querySelector('.page-indicator');
-    const englishReadAloudBtns = document.querySelectorAll('.english .read-aloud');
-    const spanishReadAloudBtns = document.querySelectorAll('.spanish .read-aloud');
-    const langEnBtn = document.getElementById('lang-en');
-    const langEsBtn = document.getElementById('lang-es');
-    const themeBtns = document.querySelectorAll('.theme-btn');
-    
-    // State variables
-    let currentStory = {
-        english: [],
-        spanish: []
-    };
-    let currentPage = 0;
-    let currentLanguage = 'english';
-    
-    // Event Listeners
-    generateBtn.addEventListener('click', generateStory);
-    prevPageBtn.addEventListener('click', goToPreviousPage);
-    nextPageBtn.addEventListener('click', goToNextPage);
-    langEnBtn.addEventListener('click', () => switchLanguage('english'));
-    langEsBtn.addEventListener('click', () => switchLanguage('spanish'));
-    
-    themeBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            setTheme(this.dataset.theme);
-        });
-    });
-    
-    englishReadAloudBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            readAloud(currentStory.english[currentPage], 'en');
-        });
-    });
-    
-    spanishReadAloudBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            readAloud(currentStory.spanish[currentPage], 'es');
-        });
-    });
-    
-    // Initialize
-    setTheme('light');
-    
-    // Functions
-    async function generateStory() {
-        const prompt = storyIdeaInput.value.trim();
-        const openaiKey = document.getElementById('openai-key').value.trim();
-        
-        if (!prompt) {
-            alert('Please enter a story idea!');
-            return;
-        }
-        
-        if (!openaiKey) {
-            alert('Please enter your OpenAI API key!');
-            return;
-        }
-        
-        try {
-            generateBtn.disabled = true;
-            generateBtn.textContent = 'Creating...';
-            
-            // Generate English story
-            const englishStory = await generateStoryWithAI(prompt, openaiKey, 'english');
-            currentStory.english = splitIntoPages(englishStory);
-            
-            // Generate Spanish translation
-            const spanishStory = await generateStoryWithAI(
-                `Translate this children's story to Spanish, keeping it simple for ages 6-10:\n\n${englishStory}`,
-                openaiKey,
-                'spanish'
-            );
-            currentStory.spanish = splitIntoPages(spanishStory);
-            
-            // Display first page
-            currentPage = 0;
-            updateStoryDisplay();
-            storyContainer.classList.remove('hidden');
-        } catch (error) {
-            console.error('Error generating story:', error);
-            alert('Error generating story. Please check your API key and try again.');
-        } finally {
-            generateBtn.disabled = false;
-            generateBtn.textContent = 'Create Story';
-        }
+:root {
+    --primary: #4285f4;
+    --secondary: #34a853;
+    --background: #ffffff;
+    --text: #333333;
+    --accent: #ea4335;
+    --highlight: #fbbc05;
+}
+
+/* Theme variables */
+.light {
+    --background: #ffffff;
+    --text: #333333;
+    --panel: #f5f5f5;
+    --border: #dddddd;
+}
+
+.dark {
+    --background: #121212;
+    --text: #e0e0e0;
+    --panel: #1e1e1e;
+    --border: #333333;
+}
+
+.sepia {
+    --background: #f4ecd8;
+    --text: #5b4636;
+    --panel: #e4d4b1;
+    --border: #c9b18b;
+}
+
+.blue {
+    --background: #e6f3ff;
+    --text: #003366;
+    --panel: #cce6ff;
+    --border: #99ccff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.controls {
+    background-color: var(--panel);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.api-inputs {
+    margin-bottom: 20px;
+}
+
+.api-field {
+    margin-bottom: 15px;
+}
+
+.api-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.api-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.settings {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.theme-selector, .language-selector {
+    flex: 1;
+    min-width: 200px;
+}
+
+.theme-selector label, .language-selector label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.theme-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+.theme-btn[data-theme="light"] {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.theme-btn[data-theme="dark"] {
+    background-color: #333;
+    color: #fff;
+}
+
+.theme-btn[data-theme="sepia"] {
+    background-color: #e4d4b1;
+    color: #5b4636;
+}
+
+.theme-btn[data-theme="blue"] {
+    background-color: #cce6ff;
+    color: #003366;
+}
+
+#language {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.story-prompt {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.story-prompt label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.story-prompt input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+#generate-btn {
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#generate-btn:hover {
+    background-color: var(--secondary);
+}
+
+.story-container {
+    display: none;
+    margin-top: 20px;
+}
+
+.story-container.visible {
+    display: block;
+}
+
+.story-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.story-nav button {
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+.story-nav button:disabled {
+    background-color: var(--border);
+    cursor: not-allowed;
+}
+
+#page-counter {
+    font-weight: bold;
+}
+
+.story-content {
+    display: flex;
+    gap: 20px;
+    min-height: 300px;
+}
+
+.story-column {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--panel);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.story-column h2 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.story-text {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    min-height: 100px;
+}
+
+.play-btn {
+    padding: 8px 15px;
+    background-color: var(--highlight);
+    color: var(--text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 50px;
+    display: none;
+}
+
+.loading.visible {
+    display: block;
+}
+
+.spinner {
+    border: 5px solid var(--border);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .story-content {
+        flex-direction: column;
     }
     
-    async function generateStoryWithAI(prompt, apiKey, language) {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                    {
-                        role: 'system',
-                        content: `You are a children's story generator. Create a fun, engaging story for kids ages 6-10. 
-                        Keep sentences short and simple. Use basic vocabulary. The story should be 3-5 paragraphs long. 
-                        Respond with just the story text, no titles or explanations.`
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                temperature: 0.7
-            })
-        });
-        
-        const data = await response.json();
-        return data.choices[0].message.content;
+    .settings {
+        flex-direction: column;
     }
-    
-    function splitIntoPages(story) {
-        // Split story into paragraphs first
-        const paragraphs = story.split('\n\n').filter(p => p.trim());
-        
-        // Further split long paragraphs into smaller chunks
-        const pages = [];
-        for (const paragraph of paragraphs) {
-            const sentences = paragraph.split(/[.!?]+/).filter(s => s.trim());
-            let currentPage = '';
-            
-            for (const sentence of sentences) {
-                if ((currentPage + sentence).length < 500) { // Roughly 500 characters per page
-                    currentPage += sentence + '. ';
-                } else {
-                    pages.push(currentPage.trim());
-                    currentPage = sentence + '. ';
-                }
-            }
-            
-            if (currentPage.trim()) {
-                pages.push(currentPage.trim());
-            }
-        }
-        
-        return pages;
-    }
-    
-    function updateStoryDisplay() {
-        englishStoryText.textContent = currentStory.english[currentPage] || '';
-        spanishStoryText.textContent = currentStory.spanish[currentPage] || '';
-        
-        pageIndicator.textContent = `Page ${currentPage + 1} of ${Math.max(currentStory.english.length, currentStory.spanish.length)}`;
-        
-        prevPageBtn.disabled = currentPage === 0;
-        nextPageBtn.disabled = currentPage >= Math.max(currentStory.english.length, currentStory.spanish.length) - 1;
-    }
-    
-    function goToPreviousPage() {
-        if (currentPage > 0) {
-            currentPage--;
-            updateStoryDisplay();
-        }
-    }
-    
-    function goToNextPage() {
-        if (currentPage < Math.max(currentStory.english.length, currentStory.spanish.length) - 1) {
-            currentPage++;
-            updateStoryDisplay();
-        }
-    }
-    
-    function switchLanguage(lang) {
-        currentLanguage = lang;
-        document.querySelector('.english').classList.toggle('hidden', lang !== 'english');
-        document.querySelector('.spanish').classList.toggle('hidden', lang !== 'spanish');
-        
-        langEnBtn.classList.toggle('active', lang === 'english');
-        langEsBtn.classList.toggle('active', lang === 'spanish');
-    }
-    
-    function setTheme(theme) {
-        document.body.className = theme;
-        
-        // Update active button state
-        themeBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.theme === theme);
-        });
-    }
-    
-    function readAloud(text, lang) {
-        const ttsKey = document.getElementById('tts-key').value.trim();
-        
-        if (!ttsKey) {
-            alert('Please enter your TTS API key to use read aloud');
-            return;
-        }
-        
-        // In a real implementation, you would call the TTS API here
-        // This is a placeholder for the TTS functionality
-        console.log(`Reading aloud (${lang}):`, text);
-        alert(`Read aloud would play: ${text}\n\n(In a real implementation, this would use the TTS API)`);
-        
-        // Example implementation with Web Speech API (no key needed, but browser support varies)
-        try {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang === 'es' ? 'es-ES' : 'en-US';
-            utterance.rate = 0.9;
-            speechSynthesis.speak(utterance);
-        } catch (e) {
-            console.error('Error with Web Speech API:', e);
-        }
-    }
-    
-    // Touch event handlers for mobile swipe navigation
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    storyContainer.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-    
-    storyContainer.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-    
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            // Swipe left - next page
-            goToNextPage();
-        } else if (touchEndX > touchStartX + 50) {
-            // Swipe right - previous page
-            goToPreviousPage();
-        }
-    }
-});
+}

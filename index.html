@@ -3,58 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Magic</title>
+    <title>Story Magic - Children's Story Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap">
 </head>
-<body class="theme-blue">
-    <div class="container">
+<body>
+    <div class="app-container">
         <header>
             <h1>Story Magic</h1>
-            <div class="theme-switcher">
-                <button class="theme-btn blue" data-theme="blue"></button>
-                <button class="theme-btn green" data-theme="green"></button>
-                <button class="theme-btn purple" data-theme="purple"></button>
-                <button class="theme-btn orange" data-theme="orange"></button>
-            </div>
+            <p>Create wonderful stories for children aged 6-10</p>
         </header>
-
-        <div class="input-section">
-            <input type="text" id="storyPrompt" placeholder="Enter your story idea (e.g. Squirrels on Ice)">
-            <button id="generateBtn">Generate Story</button>
-        </div>
-
-        <div class="story-container hidden">
-            <div class="story-controls">
-                <button id="prevPage">Previous</button>
-                <span id="pageIndicator">Page 1 of 10</span>
-                <button id="nextPage">Next</button>
-                <button id="readBtn">Read Aloud</button>
-            </div>
-
-            <div class="story-content">
-                <div class="english-story">
-                    <h2>English</h2>
-                    <div id="englishText" class="story-text"></div>
+        
+        <main>
+            <div class="controls-panel">
+                <div class="input-group">
+                    <label for="story-theme">Story Theme:</label>
+                    <input type="text" id="story-theme" placeholder="e.g. space adventure, friendly dragon">
                 </div>
-                <div class="spanish-story">
-                    <h2>Spanish</h2>
-                    <div id="spanishText" class="story-text"></div>
+                
+                <div class="input-group">
+                    <label for="main-character">Main Character:</label>
+                    <input type="text" id="main-character" placeholder="e.g. Luna the cat">
+                </div>
+                
+                <div class="settings-row">
+                    <div class="toggle-group">
+                        <input type="checkbox" id="show-spanish" checked>
+                        <label for="show-spanish">Show Spanish Translation</label>
+                    </div>
+                    
+                    <div class="toggle-group">
+                        <input type="checkbox" id="enable-tts">
+                        <label for="enable-tts">Enable Text-to-Speech</label>
+                    </div>
+                </div>
+                
+                <button id="generate-btn" class="primary-btn">Create Story</button>
+                
+                <div class="api-settings">
+                    <button id="api-settings-btn" class="secondary-btn">API Settings</button>
+                    <div class="api-modal" id="api-modal">
+                        <div class="modal-content">
+                            <h3>API Settings</h3>
+                            <div class="input-group">
+                                <label for="openai-key">OpenAI API Key:</label>
+                                <input type="password" id="openai-key" placeholder="sk-...">
+                            </div>
+                            <div class="input-group">
+                                <label for="tts-key">TTS API Key (optional):</label>
+                                <input type="password" id="tts-key" placeholder="Gemini or other TTS key">
+                            </div>
+                            <div class="modal-buttons">
+                                <button id="save-api-btn" class="primary-btn">Save</button>
+                                <button id="close-api-btn" class="secondary-btn">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="word-highlighter">
-                <p>Click on any word to hear it again</p>
-                <div id="wordDisplay"></div>
+            
+            <div class="story-display" id="story-display">
+                <div class="story-container">
+                    <div class="page-controls">
+                        <button id="prev-page" class="nav-btn" disabled>&larr; Previous</button>
+                        <span id="page-indicator">Page 1 of 1</span>
+                        <button id="next-page" class="nav-btn" disabled>Next &rarr;</button>
+                    </div>
+                    
+                    <div class="story-content">
+                        <div class="story-page" id="current-page">
+                            <p class="english-text">Your generated story will appear here, two sentences at a time.</p>
+                            <p class="spanish-text hidden">Tu historia generada aparecerá aquí, dos oraciones a la vez.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="story-actions">
+                        <button id="read-aloud-btn" class="action-btn" disabled>
+                            <span class="icon">🔊</span> Read Page
+                        </button>
+                        <button id="download-story-btn" class="action-btn">
+                            <span class="icon">📥</span> Download Story
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="loading hidden">
-            <div class="spinner"></div>
-            <p>Creating your magical story...</p>
-        </div>
+        </main>
+        
+        <footer>
+            <p>Made with ❤️ for young readers</p>
+        </footer>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>

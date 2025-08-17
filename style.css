@@ -65,11 +65,11 @@ input[type="text"] {
     border-radius: 8px;
     font-size: 16px;
     background-color: #222; /* dark input background */
-    color: #FFFF00; /* yellow text inside input for consistency */
+    color: #d1b204; /* yellow text inside input for consistency */
 }
 
 input[type="text"]:focus {
-    border-color: #FFFF00; /* yellow border on focus */
+    border-color: #d1b204; /* yellow border on focus */
     box-shadow: 0 0 6px #FFFF00;
     outline: none;
 }
@@ -88,7 +88,7 @@ button {
 }
 
 button:hover:not(:disabled) {
-    background: linear-gradient(135deg, #FF8C00, #FFA500);
+    background: linear-gradient(135deg, #1a0487, #120261;
     transform: translateY(-2px);
 }
 
@@ -107,7 +107,7 @@ button:disabled {
     border-radius: 12px;
     overflow: hidden;
     background: #222; /* darker background for story area */
-    color: #FFFF00; /* yellow text for story content */
+    color: #d1a608; /* yellow text for story content */
 }
 
 .story-column {
@@ -141,7 +141,7 @@ button:disabled {
     min-width: 100px;
     text-align: center;
     font-size: 18px;
-    color: #FFFF00; /* highlight with yellow */
+    color: #1c039c; /* highlight with yellow */
 }
 
 /* Dyslexia mode adjustments */
@@ -149,7 +149,7 @@ button:disabled {
     font-family: 'OpenDyslexic', sans-serif;
     letter-spacing: 1px;
     line-height: 2;
-    color: #FFFF00; /* yellow text in dyslexia mode */
+    color: #1c039c; /* yellow text in dyslexia mode */
     background-color: #2F2F2F; /* darker background for readability */
 }
 

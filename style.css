@@ -11,7 +11,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.7;
     color: #FFFF00; /* Bright yellow text for high contrast */
-    background: linear-gradient(135deg, #4B6B4B, #2F4F2F); /* Medium dark green background */
+    background: linear-gradient(135deg, #021c02, #022402); /* Medium dark green background */
     margin: 0;
     padding: 20px;
     transition: background 0.4s ease;
@@ -21,7 +21,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #3A5F3A; /* Medium dark green for contrast */
+    background-color: #021c14; /* Medium dark green for contrast */
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -76,7 +76,7 @@ input[type="text"]:focus {
 
 /* Buttons with high contrast, hover, and solid styles */
 button {
-    background: linear-gradient(135deg, #031f1d, #02272b); /* green gradient for visibility */
+    background: linear-gradient(135deg, #022326, #02272b); /* green gradient for visibility */
     color: #1b91cf; /* button text color changed to #1b91cf */
     border: none;
     padding: 12px 18px;
